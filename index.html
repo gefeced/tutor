@@ -256,6 +256,18 @@
       font-size: 0.9rem;
     }
 
+    .template {
+      margin: 0.6rem 0 0;
+      padding: 0.9rem;
+      background: #ffffff;
+      border: 1px dashed var(--border);
+      border-radius: 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 0.9rem;
+      color: var(--text);
+      white-space: pre-wrap;
+    }
+
     footer {
       padding: 2rem 0 3rem;
       text-align: center;
@@ -359,19 +371,25 @@
           <div class="card">
             <span class="tag">Quick Check-in</span>
             <h3>30-minute session</h3>
-            <p class="price">Free <span>/ session</span></p>
+            <p class="price">TBD <span>/ session</span></p>
             <p>Great for homework help or targeted review.</p>
           </div>
           <div class="card">
             <span class="tag">Most Popular</span>
             <h3>60-minute session</h3>
-            <p class="price">Free <span>/ session</span></p>
+            <p class="price">TBD <span>/ session</span></p>
             <p>Enough time for instruction and guided practice.</p>
+          </div>
+          <div class="card">
+            <span class="tag">Full Time</span>
+            <h3>Full Time</h3>
+            <p class="price">TBD <span>/ session</span></p>
+            <p>For students who want to come back multiple times.</p>
           </div>
           <div class="card">
             <span class="tag">Group</span>
             <h3>Small group</h3>
-            <p class="price">Free <span>/ student</span></p>
+            <p class="price">TBD <span>/ student</span></p>
             <p>Collaborative learning with classmates or siblings.</p>
           </div>
         </div>
@@ -381,7 +399,7 @@
     <section id="contact" class="contact">
       <div class="container">
         <h2>Contact</h2>
-        <p class="lead">Email is the quickest way to reach out. Use the form to send a quick note.</p>
+        <p class="lead">Email is the quickest way to reach out. Copy the address or the quick format below.</p>
         <div class="contact-grid">
           <div class="email-box">
             <div>
@@ -392,8 +410,16 @@
             <div id="copy-status" class="success" aria-live="polite"></div>
           </div>
 
-          <div>
-            <p class="lead">Send a quick email to get started or to ask a question.</p>
+          <div class="email-box">
+            <div>
+              <strong>Quick Email Format</strong>
+              <pre class="template" id="email-template">Subject: Tutoring inquiry
+Preferred Time:
+Name and other info:
+Notes:</pre>
+            </div>
+            <button class="button secondary" id="copy-template" type="button">Copy format</button>
+            <div id="template-status" class="success" aria-live="polite"></div>
           </div>
         </div>
       </div>
@@ -401,7 +427,7 @@
   </main>
 
   <footer>
-    <div class="container">© 2026 Tutoring. All rights reserved.</div>
+    <div class="container">2026 Tutoring</div>
   </footer>
 
   <script>
@@ -418,6 +444,9 @@
     const email = 'gefeced@gmail.com';
     const copyButton = document.getElementById('copy-email');
     const copyStatus = document.getElementById('copy-status');
+    const templateButton = document.getElementById('copy-template');
+    const templateStatus = document.getElementById('template-status');
+    const templateText = document.getElementById('email-template').textContent;
 
     copyButton.addEventListener('click', async () => {
       try {
@@ -428,6 +457,18 @@
         }, 2000);
       } catch (error) {
         copyStatus.textContent = 'Unable to copy. Please select and copy manually.';
+      }
+    });
+
+    templateButton.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(templateText);
+        templateStatus.textContent = 'Format copied to clipboard.';
+        setTimeout(() => {
+          templateStatus.textContent = '';
+        }, 2000);
+      } catch (error) {
+        templateStatus.textContent = 'Unable to copy. Please select and copy manually.';
       }
     });
 
